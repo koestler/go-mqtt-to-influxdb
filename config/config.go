@@ -9,6 +9,7 @@ import (
 	"sort"
 	"strings"
 	"time"
+	"os"
 )
 
 const NameRegexp = "^[a-zA-Z0-9\\-]{1,32}$"
@@ -27,6 +28,7 @@ func ReadConfigFile(exe, source string) (config Config, err []error) {
 func ReadConfig(yamlStr []byte) (config Config, err []error) {
 	var configRead configRead
 
+	yamlStr = []byte(os.ExpandEnv(string(yamlStr)))
 	e := yaml.Unmarshal(yamlStr, &configRead)
 	if e != nil {
 		return config, []error{fmt.Errorf("cannot parse yaml: %s", err)}

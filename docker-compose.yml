@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+
+  go-mqtt-to-influx:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile    
+    ports:
+      - "8880:8880"
+    
+    volumes:
+      - ./config.yml:/app/config.yml
